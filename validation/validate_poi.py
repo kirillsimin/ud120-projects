@@ -32,11 +32,22 @@ labels, features = targetFeatureSplit(data)
 from sklearn import tree
 from sklearn.cross_validation import train_test_split
 
-target, features = targetFeatureSplit(data)
-feature_train, feature_test, target_train, target_test = train_test_split(features, target, test_size=0.3, random_state=42)
+labels, features = targetFeatureSplit(data)
+features_train, features_test, labels_train, labels_test = train_test_split(features, labels, test_size=0.3, random_state=42)
 
 
 clf = tree.DecisionTreeClassifier()
-clf = clf.fit(feature_train, target_train)
+clf = clf.fit(features_train, labels_train)
 
-print clf.score(feature_test, target_test)
+print 'score:'
+print clf.score(features_test, labels_test)
+
+predict = clf.predict(features_test)
+
+print predict
+print labels_test
+
+from sklearn.metrics import precision_score, recall_score
+
+print precision_score(labels_test, predict)
+print recall_score(labels_test, predict)
