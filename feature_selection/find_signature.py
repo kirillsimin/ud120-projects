@@ -39,5 +39,16 @@ labels_train   = labels_train[:150]
 
 ### your code goes here
 
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(features_train, labels_train)
+print "Score is:", clf.score(features_test, labels_test)
+
+fi_count = 0
+for fi in clf.feature_importances_:
+    if fi > 0.2:
+        print "feature weight:", fi, ", position:" ,fi_count, "word:", vectorizer.get_feature_names()[fi_count]
+    fi_count += 1
 
 
+# print "overweight feature:", vectorizer.get_feature_names()[33614]

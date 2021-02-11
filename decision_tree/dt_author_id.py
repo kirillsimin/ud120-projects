@@ -28,4 +28,15 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 #########################################################
 
+#print len(features_train[0])
+
+from sklearn.tree import DecisionTreeClassifier as dtc
+
+clf = dtc(min_samples_split=40)
+
+clf.fit(features_train, labels_train)
+clf.predict(features_test)
+score = clf.score(features_test, labels_test)
+
+print score
 

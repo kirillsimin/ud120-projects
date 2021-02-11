@@ -43,11 +43,25 @@ data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r")
 ### there's an outlier--remove it! 
 data_dict.pop("TOTAL", 0)
 
+#key_lookup = 'salary'
+key_lookup = 'exercised_stock_options'
+
+sorted_data = sorted(data_dict.values(), key=lambda k: k[key_lookup])
+
+filtered_data = []
+for d in sorted_data:
+    if d[key_lookup] != 'NaN':
+        filtered_data.append(d[key_lookup])
+
+print max(filtered_data)
+print min(filtered_data)
+
 
 ### the input features we want to use 
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+feature_3 = "total_payments"
 poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
@@ -66,6 +80,10 @@ plt.show()
 ### for the data and store them to a list called pred
 
 
+from sklearn.cluster import KMeans
+
+kmeans = KMeans(n_clusters = 2).fit(finance_features)
+pred = kmeans.predict(finance_features)
 
 
 ### rename the "name" parameter when you change the number of features

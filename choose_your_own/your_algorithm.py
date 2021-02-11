@@ -32,13 +32,23 @@ plt.show()
 ### visualization code (prettyPicture) to show you the decision boundary
 
 
+#from sklearn.ensemble import AdaBoostClassifier as adb
+#clf = adb()
 
+from sklearn.svm import SVC
+clf=SVC(C=50000)
 
+#from sklearn.tree import DecisionTreeClassifier as dtc
+#clf = dtc(min_samples_split=50)
 
-
+clf.fit(features_train, labels_train)
+clf.predict(features_test)
 
 
 try:
     prettyPicture(clf, features_test, labels_test)
 except NameError:
     pass
+
+
+print clf.score(features_test, labels_test)
